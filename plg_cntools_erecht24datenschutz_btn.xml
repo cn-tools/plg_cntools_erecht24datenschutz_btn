@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="editors-xtd" method="upgrade">
+	<name>Button-Ext - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung</name>
+	<author>CN-Tools | Clemens Neubauer</author>
+	<creationDate>2016-01-07</creationDate>
+	<copyright>Copyright 2016 (C) Clemens Neubauer. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>cn-tools@gmx.at</authorEmail>
+	<authorUrl>https://github.com/cn-tools/</authorUrl>
+	<version>0.0.1</version>
+
+	<description>
+		<![CDATA[<p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>
+<p>Dieses Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>! Sollte Sie dieses Plug-In noch nicht installiert haben, installieren und aktivieren Sie es bitte um dieses Plug-In ordnungsgemäs nutzen zu können.</p>
+<p><strong style="color:#F00">Dieses Plug-In wird &quot;So-Wie-Es-Ist&quot; angeboten und es wird keinerlei Haftung übernommen! Jegliche Gewährleistung ist ausgeschlossen! Die Nutzung erfolgt auf eigene Gefahr!<br />
+  Dies gilt sowohl für den Datenbereitsteller <a target="_blank" href="http://www.e-recht24.de/muster-datenschutzerklaerung.html">http://www.e-recht24.de/muster-datenschutzerklaerung.html</a>, als auch für den Author dieses Plug-In's!<br>
+  Der Datenbereitsteller behält sich ausserdem das Recht vor, den Service der Datenbereitstellung ohne jegliche Vorankündigung einzustellen!</strong></p>
+<p>Beispiel:<br />
+{ERecht24Datenschutz}&amp;standard=1&amp;facebook=1&amp;twitter=1{/ERecht24Datenschutz}</p>
+<p>Sollte Ihnen dieses Plug-In gefallen, würde ich mich freuen, wenn Sie mir eine Getränk spendieren würden...</p>
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MDMPWWA3JLRN2" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG_global.gif" alt="PayPal – The safer, easier way to pay online." /></a></p>
+<p>&nbsp;</p>
+<p>PS: Dieses Plug-In wird nur auf Deutsch angeboten, da die Texte vom Datenbereitsteller ebenfalls ausschließlich auf Deutsch geliefert werden! ;)</p>
+<p>&nbsp;</p>]]>
+	</description>
+
+	<files>
+		<filename plugin="plg_cntools_erecht24datenschutz_btn">plg_cntools_erecht24datenschutz_btn.php</filename>
+		<filename plugin="plg_cntools_erecht24datenschutz_btn">plg_cntools_erecht24datenschutz_btn.html.php</filename>
+		<filename plugin="plg_cntools_erecht24datenschutz_btn">index.html</filename>
+	</files>
+
+	<updateservers>
+		<server type="extension" priority="1" name="plg_cntools_changealias Updates">https://raw.githubusercontent.com/cn-tools/plg_cntools_erecht24datenschutz_btn/master/updateversion.xml</server>
+	</updateservers>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic" label="Einstellungen">
+				<field name="token" type="text" default="" label="Token" description="Es muss ein Token eingegeben werden, um den Aufruf der Datei von außen zu unterbinden. Ohne Absicherung könnten Dritte von außen die Verzeichnisstruktur des Servers auslesen. Der Token sollte sicher gewählt werden, z.B.: 2Had!ws5. Zusätzlich wird dieser Token md5-verschlüsselt. Die müssen sich den  Token nicht merken!" required="true" />
+
+				<field name="note" type="note" description="Mit den folgenden Einstellungen können Sie festlegen, was fix genutzt werden muss, nicht genutzt werden darf bzw. dem User die Möglichkeit geben es selbst zu entscheiden" />
+
+				<field name="standard" type="radio" default="2" label="Disclaimer" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="privacy" type="radio" default="2" label="Datenschutzerklärung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="facebook" type="radio" default="2" label="Facebook:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="analytics" type="radio" default="2" label="Google Analytics:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="plusone" type="radio" default="2" label="Google +1:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+<!--
+				<field name="adsense" type="radio" default="2" label="Google Adsense:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="remarketing" type="radio" default="2" label="Google Analytics Remarketing:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+				<field name="etracker" type="radio" default="2" label="etracker:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="twitter" type="radio" default="2" label="Twitter:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="xing" type="radio" default="2" label="Xing:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="instagram" type="radio" default="2" label="Instagram:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="linkedin" type="radio" default="2" label="Linkedin:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="pinterest" type="radio" default="2" label="Pinterest:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="tumblr" type="radio" default="2" label="Tumblr:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+<!--
+				<field name="amazon" type="radio" default="2" label="Amazon Partnerprogramm:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+				<field name="infodelete" type="radio" default="2" label="Auskunft, Löschung, Sperrung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="serverlogfiles" type="radio" default="2" label="Server-Log-Dateien:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="cookies" type="radio" default="2" label="Cookies:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="contactform" type="radio" default="2" label="Kontaktformular:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="advertemail" type="radio" default="2" label="Werbe-E-Mails:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="newsletter" type="radio" default="2" label="Newsletter:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+<!--			
+				<field name="registration" type="radio" default="2" label="Nutzerregistrierung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="shops" type="radio" default="2" label="Datenübermittlung - Online-Shops & Händler (mit Warenversand):" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="onlinecontracts" type="radio" default="2" label="Datenübermittlung - Dienstleister, die online Verträge schließen (ohne Warenversand):" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="dataprocessing" type="radio" default="2" label="Datenschutzerklärung zum Verarbeiten von Kunden- und Vertragsdaten:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+			</fieldset>
+			<fieldset name="special" label="Spezial">
+				<field name="btnname" type="text" default="" label="Beschriftung" description="" />
+				<field name="width" type="text" default="" label="Breite (px)" description="" />
+				<field name="height" type="text" default="" label="Höhe (px)" description="" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
