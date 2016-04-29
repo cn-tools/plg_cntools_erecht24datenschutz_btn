@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>cn-tools@gmx.at</authorEmail>
 	<authorUrl>https://github.com/cn-tools/</authorUrl>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 
 	<description>
 		<![CDATA[<p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>
@@ -41,7 +41,7 @@
 
 				<field name="note" type="note" description="Mit den folgenden Einstellungen können Sie festlegen, was fix genutzt werden muss, nicht genutzt werden darf bzw. dem User die Möglichkeit geben es selbst zu entscheiden" />
 
-				<field name="standard" type="radio" default="2" label="Disclaimer" description="" class="btn-group" >
+				<field name="standard" type="radio" default="2" label="Disclaimer:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -51,7 +51,22 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
-				<field name="facebook" type="radio" default="2" label="Facebook:" description="" class="btn-group" >
+				<field name="cookies" type="radio" default="2" label="Cookies:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="serverlogfiles" type="radio" default="2" label="Server-Log-Dateien:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="contactform" type="radio" default="2" label="Kontaktformular:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="newsletter" type="radio" default="2" label="Newsletter:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -61,26 +76,17 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
-				<field name="plusone" type="radio" default="2" label="Google +1:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-<!--
-				<field name="adsense" type="radio" default="2" label="Google Adsense:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
--->
-<!--
-				<field name="remarketing" type="radio" default="2" label="Google Analytics Remarketing:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
--->
 				<field name="etracker" type="radio" default="2" label="etracker:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="piwik" type="radio" default="2" label="Piwik:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="facebook" type="radio" default="2" label="Facebook:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -90,7 +96,7 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
-				<field name="xing" type="radio" default="2" label="Xing:" description="" class="btn-group" >
+				<field name="plusone" type="radio" default="2" label="Google +1:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -110,11 +116,35 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
+				<field name="xing" type="radio" default="2" label="Xing:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
 				<field name="tumblr" type="radio" default="2" label="Tumblr:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
+				<field name="youtube" type="radio" default="2" label="YouTube:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+<!--
+				<field name="adsense" type="radio" default="2" label="Google Adsense:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="remarketing" type="radio" default="2" label="Google Analytics Remarketing:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
 <!--
 				<field name="amazon" type="radio" default="2" label="Amazon Partnerprogramm:" description="" class="btn-group" >
 					<option value="0">Nein</option>
@@ -122,38 +152,15 @@
 					<option value="2">Abfragen</option>
 				</field>
 -->
-				<field name="infodelete" type="radio" default="2" label="Auskunft, Löschung, Sperrung:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-				<field name="serverlogfiles" type="radio" default="2" label="Server-Log-Dateien:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-				<field name="cookies" type="radio" default="2" label="Cookies:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-				<field name="contactform" type="radio" default="2" label="Kontaktformular:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-				<field name="advertemail" type="radio" default="2" label="Werbe-E-Mails:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-				<field name="newsletter" type="radio" default="2" label="Newsletter:" description="" class="btn-group" >
-					<option value="0">Nein</option>
-					<option value="1">Ja</option>
-					<option value="2">Abfragen</option>
-				</field>
-<!--			
+<!--
 				<field name="registration" type="radio" default="2" label="Nutzerregistrierung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="dataprocessing" type="radio" default="2" label="Datenschutzerklärung zum Verarbeiten von Kunden- und Vertragsdaten:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -173,8 +180,18 @@
 					<option value="2">Abfragen</option>
 				</field>
 -->
+				<field name="infodelete" type="radio" default="2" label="Auskunft, Löschung, Sperrung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="advertemails" type="radio" default="2" label="Werbe-E-Mails:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
 <!--
-				<field name="dataprocessing" type="radio" default="2" label="Datenschutzerklärung zum Verarbeiten von Kunden- und Vertragsdaten:" description="" class="btn-group" >
+				<field name="translation_en" type="radio" default="2" label="??????????:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
