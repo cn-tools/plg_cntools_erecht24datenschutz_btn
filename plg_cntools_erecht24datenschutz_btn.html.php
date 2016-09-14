@@ -39,6 +39,7 @@ $plugin = JPluginHelper::getPlugin('editors-xtd', 'plg_cntools_erecht24datenschu
 $params = new JRegistry($plugin->params);
 $paramCount = 0;
 
+$lDoExit = false;
 $token = htmlspecialchars($_GET['token']);
 
 //-- Exit if token is empty or like example '2Had!ws5' in the language files --
@@ -48,33 +49,60 @@ if($token == 'd41d8cd98f00b204e9800998ecf8427e' OR $token == '03e2634ebe1fd572fa
 	jexit();
 }
 
+//-- Exit if needed plug in is not installed ----------------------------------
+$lNeededPlugin = JPluginHelper::getPlugin('content', 'plg_cntools_erecht24datenschutz');
+if (isset($lNeededPlugin) and ($lNeededPlugin->name == 'plg_cntools_erecht24datenschutz'))
+{
+	$NeededParams = new JRegistry($lNeededPlugin->params);
+	if ($NeededParams->get('plg_cntools_e24d_acknowledge') != '1')
+	{
+		echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
+		$lDoExit = true;
+	}
+} else {
+	echo 'Dieses Button-Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>!';
+	$lDoExit = true;
+}
+
 //-- Check if token is correct else exit --------------------------------------
 if($token != md5($params->get('token')))
 {
 	echo 'Token falsch!';
-	jexit();
+	$lDoExit = true;
 }
 else
 {
     $name = htmlspecialchars($_GET['name']);
 }
-?>
 
-<?php
+if ($lDoExit)
+{
+	unset($NeededParams);
+	unset($lNeededPlugin);
+	jexit();
+}
+
 function doAddContent($params, $name, $label, $desc) {
 ?>
-	<tr>
-		<td><label id="<?php echo $name; ?>-lbl" for="<?php echo $name; ?>" class="tooltip" title="<?php echo $desc; ?>"><?php echo $label; ?>:&nbsp;&nbsp;</label></td>
-		<td>
-			<input name="<?php echo $name; ?>" <?php if ($params->get($name) != '2') { echo 'disabled';} ?> id="<?php echo $name; ?>" value="1" type="radio" <?php if ($params->get($name) == '1') { echo 'checked="checked"'; }?> />
-			<label for="<?php echo $name; ?>">Ja</label>
-			<input name="<?php echo $name; ?>" <?php if ($params->get($name) != '2') { echo 'disabled';} ?> id="<?php echo $name; ?>0" value="0" type="radio" <?php if ($params->get($name) != '1') { echo 'checked="checked"'; }?> />
-			<label for="<?php echo $name; ?>2">Nein</label>
-		</td>
-		<td><?php if ($params->get($name) != '2') {?><span id="<?php echo $name; ?>-admlbl">&nbsp;&nbsp;Vom Admin vorgegeben!</span><?php } ?></td>
-	</tr>
+							<tr>
+								<td><label id="<?php echo $name; ?>-lbl" for="<?php echo $name; ?>" class="tooltip" title="<?php echo $desc; ?>"><?php echo $label; ?>:&nbsp;&nbsp;</label></td>
+								<td>
+									<input name="<?php echo $name; ?>" <?php if ($params->get($name) != '2') { echo 'disabled';} ?> id="<?php echo $name; ?>" value="1" type="radio" <?php if ($params->get($name) == '1') { echo 'checked="checked"'; }?> />
+									<label for="<?php echo $name; ?>">Ja</label>
+									<input name="<?php echo $name; ?>" <?php if ($params->get($name) != '2') { echo 'disabled';} ?> id="<?php echo $name; ?>0" value="0" type="radio" <?php if ($params->get($name) != '1') { echo 'checked="checked"'; }?> />
+									<label for="<?php echo $name; ?>2">Nein</label>
+								</td>
+								<td><?php if ($params->get($name) != '2') {?><span id="<?php echo $name; ?>-admlbl">&nbsp;&nbsp;Vom Admin vorgegeben!</span><?php } ?></td>
+							</tr>
 <?php
 }
+$lAddFallBack = '';
+$names = explode('_', $name);
+if ((count($names) == 7) and ($names[0] == 'jform') and ($names[1] == 'params') and ($names[2] == 'plg') and ($names[3] == 'cntools') and ($names[4] == 'e24d') and ($names[5] == 'fallback') and ($names[6] != 'bottom'))
+{
+	$lAddFallBack	= $names[6];
+}
+
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml">
@@ -84,6 +112,22 @@ function doAddContent($params, $name, $label, $desc) {
 			<script type="text/javascript" src="<?php echo htmlspecialchars(dirname($_SERVER['PHP_SELF'])); ?>/../../../media/system/js/mootools-core.js"></script>
 			<script type="text/javascript" src="<?php echo htmlspecialchars(dirname($_SERVER['PHP_SELF'])); ?>/../../../media/system/js/mootools-more.js"></script>
 			<script type="text/javascript">
+<?php if ($lAddFallBack != '') { ?>
+				function insertFallbackText(editor)
+				{
+					var lURL = "plg_cntools_erecht24datenschutz_helper.php?name=<?php echo $lAddFallBack; ?>&token=<?php echo $token; ?>&nocache=<?php echo date('YmdHisuIB'); ?>&key=<?php echo uniqid(); ?>";
+					var jsonRequest = new Request.JSON(
+					{
+						url: lURL,
+						//onSuccess: function(data, text){ //changing to onSuccess kills everything afterwards
+						onComplete: function(data){ //changing to onSuccess kills everything afterwards
+							window.parent.jInsertEditorText(data.result, '<?php echo preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $name); ?>');
+							window.parent.SqueezeBox.close();
+							return false;
+						}
+					}).get();
+				};
+<?php } /* end of $lAddFallBack */ ?>
                 function insertParameter(editor)
                 {
 					var lValue = "";
@@ -123,20 +167,23 @@ function doAddContent($params, $name, $label, $desc) {
 					}
 					window.parent.SqueezeBox.close();
 					return false;
-				}
+				};
             </script>
         </head>
-		<?php
-		$width = (int) $params->get('width', '550');
-		$width = $width + 20;
-		?>
+<?php
+$width = (int) $params->get('width', '550');
+$width = $width + 20;
+?>
         <body style="background-color: WhiteSmoke; font-family: Verdana; font-size: 80%; width: <?php echo $width; ?>px;">
+<?php if ($lAddFallBack != '') { ?>
+			<div style="margin-left: 10px"><span title="Rückfallsebenentext einfügen">Klicken Sie hier, wenn der Rückfallsebenentext ermittlet und eingefügt werden soll:</span> - <button onclick="insertFallbackText();">Rückfallsebenentext einfügen</button></div>
+<?php } ?>
             <form name="erecht24_parameter" action="">
                 <div style="margin-left: 10px"><span title="Wählen Sie die gewünschten Einstellungen und klicken anschliessend 'Einfügen' um den entsprechenden Code einzufügen!">Bitte auswählen und abschliessend hier klicken:</span> - <button onclick="insertParameter();">Einfügen</button></div>
                 <div id="e24rechtparams">
                     <table width="100%" style="border-spacing:10px">
                         <tbody>
-							<?php
+<?php
 							doAddContent($params, 'standard', 'Disclaimer', '');
 							doAddContent($params, 'privacy', 'Datenschutzerklärung', '');
 							doAddContent($params, 'cookies', 'Cookies', '');
@@ -165,11 +212,14 @@ function doAddContent($params, $name, $label, $desc) {
 							doAddContent($params, 'infodelete', 'Auskunft, Löschung, Sperrung', '');
 							doAddContent($params, 'advertemails', 'Werbe-E-Mails', '');
 //							doAddContent($params, 'translation_en', '??????????', '');
-							?>
+?>
                         </tbody>
                     </table>
                 </div>
             </form>
         </body>
     </html>
-
+<?php
+unset($NeededParams);
+unset($lNeededPlugin);
+?>
