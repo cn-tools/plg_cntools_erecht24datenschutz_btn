@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>cn-tools@gmx.at</authorEmail>
 	<authorUrl>https://github.com/cn-tools/</authorUrl>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 
 	<description>
 		<![CDATA[<p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>

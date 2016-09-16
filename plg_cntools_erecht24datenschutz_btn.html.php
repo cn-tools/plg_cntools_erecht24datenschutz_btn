@@ -35,18 +35,37 @@ require_once JPATH_BASE . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR
 $mainframe = JFactory::getApplication('site');
 $mainframe->initialise();
 
-$plugin = JPluginHelper::getPlugin('editors-xtd', 'plg_cntools_erecht24datenschutz_btn');
-$params = new JRegistry($plugin->params);
-$paramCount = 0;
-
-$lDoExit = false;
 $token = htmlspecialchars($_GET['token']);
 
 //-- Exit if token is empty or like example '2Had!ws5' in the language files --
 if($token == 'd41d8cd98f00b204e9800998ecf8427e' OR $token == '03e2634ebe1fd572fac3f7a2c625f52d')
 {
-	echo 'Token wurde nicht festgelegt! Es muss in den Plug-In-Einstellungen ein Token eingegeben werden, um den Aufruf der Datei von außen zu unterbinden. Ohne Absicherung könnten Dritte von außen die Verzeichnisstruktur des Servers auslesen.';
+	echo 'Token wurde nicht festgelegt! Es muss in den Button-Plug-In-Einstellungen ein Token eingegeben werden, um den Aufruf der Datei von außen zu unterbinden. Ohne Absicherung könnten Dritte von außen die Verzeichnisstruktur des Servers auslesen.';
 	jexit();
+}
+
+$plugin = JPluginHelper::getPlugin('editors-xtd', 'plg_cntools_erecht24datenschutz_btn');
+$params = new JRegistry($plugin->params);
+
+//-- Check if token is correct else exit --------------------------------------
+if($token != md5($params->get('token')))
+{
+	echo 'Token falsch!';
+	jexit();
+}
+
+$lDoExit = false;
+$name = htmlspecialchars($_GET['name']);
+$lAddFallBack = '';
+$lIsOwnPlg = false;
+$names = explode('_', $name);
+if ((count($names) >= 6) and ($names[0] == 'jform') and ($names[1] == 'params') and ($names[2] == 'plg') and ($names[3] == 'cntools') and ($names[4] == 'e24d') and ($names[5] == 'fallback'))
+{
+	$lIsOwnPlg = true;
+	if ((count($names) == 7) and ($names[6] != 'bottom'))
+	{
+		$lAddFallBack = $names[6];
+	}
 }
 
 //-- Exit if needed plug in is not installed ----------------------------------
@@ -56,23 +75,17 @@ if (isset($lNeededPlugin) and ($lNeededPlugin->name == 'plg_cntools_erecht24date
 	$NeededParams = new JRegistry($lNeededPlugin->params);
 	if ($NeededParams->get('plg_cntools_e24d_acknowledge') != '1')
 	{
-		echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
+		if ($lIsOwnPlg)
+		{
+			echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontrollieren Sie bitte die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!<br />Nach dem Anpassen der notwndigen Einstellungen vergessen Sie bitte nicht \'Speicher\' zu klicken, damit diese auf wirksam werden.';
+		} else {
+			echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontrollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
+		}
 		$lDoExit = true;
 	}
 } else {
-	echo 'Dieses Button-Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>!';
+	echo 'Dieses Button-Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>!<br />Wenn Sie es bereits installiert haben, haben sie es vermutlich noch nicht aktiviert.';
 	$lDoExit = true;
-}
-
-//-- Check if token is correct else exit --------------------------------------
-if($token != md5($params->get('token')))
-{
-	echo 'Token falsch!';
-	$lDoExit = true;
-}
-else
-{
-    $name = htmlspecialchars($_GET['name']);
 }
 
 if ($lDoExit)
@@ -96,13 +109,6 @@ function doAddContent($params, $name, $label, $desc) {
 							</tr>
 <?php
 }
-$lAddFallBack = '';
-$names = explode('_', $name);
-if ((count($names) == 7) and ($names[0] == 'jform') and ($names[1] == 'params') and ($names[2] == 'plg') and ($names[3] == 'cntools') and ($names[4] == 'e24d') and ($names[5] == 'fallback') and ($names[6] != 'bottom'))
-{
-	$lAddFallBack	= $names[6];
-}
-
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml">
@@ -119,10 +125,13 @@ if ((count($names) == 7) and ($names[0] == 'jform') and ($names[1] == 'params') 
 					var jsonRequest = new Request.JSON(
 					{
 						url: lURL,
-						//onSuccess: function(data, text){ //changing to onSuccess kills everything afterwards
 						onComplete: function(data){ //changing to onSuccess kills everything afterwards
-							window.parent.jInsertEditorText(data.result, '<?php echo preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $name); ?>');
-							window.parent.SqueezeBox.close();
+							if (data.status == 200) {
+								window.parent.jInsertEditorText(data.result, '<?php echo preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $name); ?>');
+								window.parent.SqueezeBox.close();
+							} else {
+								alert(data.errtext)
+							}
 							return false;
 						}
 					}).get();
@@ -175,6 +184,7 @@ $width = (int) $params->get('width', '550');
 $width = $width + 20;
 ?>
         <body style="background-color: WhiteSmoke; font-family: Verdana; font-size: 80%; width: <?php echo $width; ?>px;">
+
 <?php if ($lAddFallBack != '') { ?>
 			<div style="margin-left: 10px"><span title="Rückfallsebenentext einfügen">Klicken Sie hier, wenn der Rückfallsebenentext ermittlet und eingefügt werden soll:</span> - <button onclick="insertFallbackText();">Rückfallsebenentext einfügen</button></div>
 <?php } ?>

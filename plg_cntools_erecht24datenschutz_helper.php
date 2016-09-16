@@ -34,15 +34,12 @@ require_once JPATH_BASE . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR
 
 //header('Content-Type: application/json');
 header('Content-type:application/json;charset=utf-8');
+$data = array();
+$data['status'] = 99;
 
 $mainframe = JFactory::getApplication('site');
 $mainframe->initialise();
 
-$plugin = JPluginHelper::getPlugin('editors-xtd', 'plg_cntools_erecht24datenschutz_btn');
-$params = new JRegistry($plugin->params);
-$paramCount = 0;
-
-$lDoExit = false;
 $token = htmlspecialchars($_GET['token']);
 
 //-- Exit if token is empty or like example '2Had!ws5' in the language files --
@@ -52,6 +49,21 @@ if($token == 'd41d8cd98f00b204e9800998ecf8427e' OR $token == '03e2634ebe1fd572fa
 	jexit();
 }
 
+$plugin = JPluginHelper::getPlugin('editors-xtd', 'plg_cntools_erecht24datenschutz_btn');
+$params = new JRegistry($plugin->params);
+$paramCount = 0;
+
+$lDoExit = false;
+
+//-- Check if token is correct else exit --------------------------------------
+if($token != md5($params->get('token')))
+{
+	echo 'Token falsch!';
+	jexit();
+}
+
+$name = htmlspecialchars($_GET['name']);
+
 //-- Exit if needed plug in is not installed ----------------------------------
 $lNeededPlugin = JPluginHelper::getPlugin('content', 'plg_cntools_erecht24datenschutz');
 if (isset($lNeededPlugin) and ($lNeededPlugin->name == 'plg_cntools_erecht24datenschutz'))
@@ -59,38 +71,21 @@ if (isset($lNeededPlugin) and ($lNeededPlugin->name == 'plg_cntools_erecht24date
 	$NeededParams = new JRegistry($lNeededPlugin->params);
 	if ($NeededParams->get('plg_cntools_e24d_acknowledge') != '1')
 	{
-		echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
+		$data['errtext'] .= 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
 		$lDoExit = true;
 	}
 } else {
-	echo 'Dieses Button-Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>!';
+	$data['errtext'] .= 'Dieses Button-Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>!';
 	$lDoExit = true;
-}
-
-//-- Check if token is correct else exit --------------------------------------
-if($token != md5($params->get('token')))
-{
-	echo 'Token falsch!';
-	$lDoExit = true;
-}
-else
-{
-    $name = htmlspecialchars($_GET['name']);
 }
 
 if (!$lDoExit)
 {
-	$data = array();
-
 	if ($name != '')
 	{
 		$lValue = '{ERecht24Datenschutz}&' . $name . '=1{/ERecht24Datenschutz}';
 		$data['code'] = $lValue;
 
-/*		JPluginHelper::importPlugin('content');
-		$lValue = JHtml::_('content.prepare', $lValue, '', 'plg_cntools_erecht24datenschutz_btn.content'); 		
-		$data['result'] = $lValue;
-*/
 		$article = new stdClass;
 		$article->text = $lValue;
 
@@ -104,16 +99,19 @@ if (!$lDoExit)
 		$dispatcher = JEventDispatcher::getInstance();
 		$dispatcher->trigger('onContentPrepare', array('plg_cntools_erecht24datenschutz_btn.'.$name, &$article, &$params, 0));
 
-		$data['result'] = $article->text;
-		
+		if ($data['code'] == $article->text)
+		{
+			$data['errtext'] .= 'Der Rückfallsebenentext konnte nicht ermittelt werden! Prüfen Sie ob das Plug-In aktiviert ist.';
+		} else {
+			$data['status'] = 200;
+			$data['result'] = $article->text;
+		}
+
 		unset($article);
 		unset($params);
 	}
-
-	echo json_encode($data);
 }
 
-unset($NeededParams);
-unset($lNeededPlugin);
+echo json_encode($data);
 jexit();
 ?>
