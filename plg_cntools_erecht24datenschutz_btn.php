@@ -29,7 +29,7 @@ jimport('joomla.plugin.plugin');
 
 class plgButtonplg_cntools_erecht24datenschutz_btn extends JPlugin
 {
-	function plgButtonplg_cntools_erecht24datenschutz_btn(&$subject, $config)
+	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
 	}
