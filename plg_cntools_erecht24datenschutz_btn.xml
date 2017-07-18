@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>cn-tools@gmx.at</authorEmail>
 	<authorUrl>https://github.com/cn-tools/</authorUrl>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 
 	<description>
 		<![CDATA[<p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>
@@ -77,12 +77,27 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
+				<field name="analyticsadv" type="radio" default="2" label="Google Analytics Auftragsdatenverarbeitung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="analyticsanonymousip" type="radio" default="2" label="Google Analytics IP-Anonymisierung:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
 				<field name="etracker" type="radio" default="2" label="etracker:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
 				<field name="piwik" type="radio" default="2" label="Piwik:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="wordpressstats" type="radio" default="2" label="Wordpress Stats:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -117,6 +132,25 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
+<!--
+				<field name="googlewebfonts" type="radio" default="2" label="Google Web Fonts:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+				<field name="soundcloud" type="radio" default="2" label="SoundCloud:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+<!--
+				<field name="googlemaps" type="radio" default="2" label="Google Maps:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
 				<field name="xing" type="radio" default="2" label="Xing:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
@@ -133,14 +167,14 @@
 					<option value="2">Abfragen</option>
 				</field>
 <!--
-				<field name="adsense" type="radio" default="2" label="Google Adsense:" description="" class="btn-group" >
+				<field name="googleadsense" type="radio" default="2" label="Google Adsense:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
 -->
 <!--
-				<field name="remarketing" type="radio" default="2" label="Google Analytics Remarketing:" description="" class="btn-group" >
+				<field name="googleremarketing" type="radio" default="2" label="Google Analytics Remarketing:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
@@ -160,6 +194,31 @@
 					<option value="2">Abfragen</option>
 				</field>
 -->
+				<field name="commentsnoemail" type="radio" default="2" label="Kommentarfunktion:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="commentsemail" type="radio" default="2" label="Kommentarfunktion mit Angabe der E-Mail-Adresse:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="commentsip" type="radio" default="2" label="Kommentarfunktion mit Speicherung der IP-Adresse:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="commentssubscription" type="radio" default="2" label="Kommentarfunktion mit Abonnieren von Kommentaren:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+				<field name="ssl" type="radio" default="2" label="SSL-Verschlüsselung der Webseite:" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
 <!--
 				<field name="dataprocessing" type="radio" default="2" label="Datenschutzerklärung zum Verarbeiten von Kunden- und Vertragsdaten:" description="" class="btn-group" >
 					<option value="0">Nein</option>
@@ -176,6 +235,13 @@
 -->
 <!--
 				<field name="onlinecontracts" type="radio" default="2" label="Datenübermittlung - Dienstleister, die online Verträge schließen (ohne Warenversand):" description="" class="btn-group" >
+					<option value="0">Nein</option>
+					<option value="1">Ja</option>
+					<option value="2">Abfragen</option>
+				</field>
+-->
+<!--
+				<field name="sslpayment" type="radio" default="2" label="Verschlüsselter Zahlungsverkehr:" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
