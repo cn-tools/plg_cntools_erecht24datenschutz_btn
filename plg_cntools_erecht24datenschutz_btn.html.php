@@ -77,7 +77,7 @@ if (isset($lNeededPlugin) and ($lNeededPlugin->name == 'plg_cntools_erecht24date
 	{
 		if ($lIsOwnPlg)
 		{
-			echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontrollieren Sie bitte die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!<br />Nach dem Anpassen der notwndigen Einstellungen vergessen Sie bitte nicht \'Speicher\' zu klicken, damit diese auf wirksam werden.';
+			echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontrollieren Sie bitte die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!<br />Nach dem Anpassen der notwndigen Einstellungen vergessen Sie bitte nicht \'Speichern\' zu klicken, damit diese auch wirksam werden.';
 		} else {
 			echo 'Damit dieses Button-Plug-In ordnungsgemäss funktioniert, kontrollieren Sie bitte beim Plug-In \'Content - CNTools - Integration E-Recht24 Haftungsausschluss und Datenschutzbestimmung\' die Einstellungen im Reiter \'Basiseinstellungen\' zum Punkt \'Bestätigung\'!';
 		}
