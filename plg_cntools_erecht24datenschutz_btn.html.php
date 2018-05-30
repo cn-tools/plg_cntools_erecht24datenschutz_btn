@@ -151,7 +151,7 @@ function doAddContent($params, $name, $label, $desc) {
 						if (document.erecht24_parameter.analyticsadv[0].checked == true) { lValue = lValue + "&analyticsadv=1"; }
 						if (document.erecht24_parameter.analyticsanonymousip[0].checked == true) { lValue = lValue + "&analyticsanonymousip=1"; }
 					if (document.erecht24_parameter.etracker[0].checked == true) { lValue = lValue + "&etracker=1"; }
-					if (document.erecht24_parameter.piwik[0].checked == true) { lValue = lValue + "&piwik=1"; }
+					if (document.erecht24_parameter.matomo[0].checked == true) { lValue = lValue + "&matomo=1"; }
 					if (document.erecht24_parameter.wordpressstats[0].checked == true) { lValue = lValue + "&wordpressstats=1"; }
 					if (document.erecht24_parameter.facebook[0].checked == true) { lValue = lValue + "&facebook=1"; }
 					if (document.erecht24_parameter.twitter[0].checked == true) { lValue = lValue + "&twitter=1"; }
@@ -216,7 +216,7 @@ $width = $width + 20;
 								doAddContent($params, 'analyticsadv', 'Google Analytics Auftragsdatenverarbeitung', '');
 								doAddContent($params, 'analyticsanonymousip', 'Google Analytics IP-Anonymisierung', '');
 							doAddContent($params, 'etracker', 'etracker', '');
-							doAddContent($params, 'piwik', 'Piwik', '');
+							doAddContent($params, 'matomo', 'Matomo (vorher Piwik)', '');
 							doAddContent($params, 'wordpressstats', 'Wordpress Stats', '');
 							doAddContent($params, 'facebook', 'Facebook', '');
 							doAddContent($params, 'twitter', 'Twitter', '');

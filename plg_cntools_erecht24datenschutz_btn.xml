@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>cn-tools@gmx.at</authorEmail>
 	<authorUrl>https://github.com/cn-tools/</authorUrl>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 
 	<description>
 		<![CDATA[<p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>
@@ -92,7 +92,7 @@
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
 				</field>
-				<field name="piwik" type="radio" default="2" label="Piwik:" description="" class="btn-group" >
+				<field name="piwik" type="radio" default="2" label="Matomo (vorher Piwik):" description="" class="btn-group" >
 					<option value="0">Nein</option>
 					<option value="1">Ja</option>
 					<option value="2">Abfragen</option>
