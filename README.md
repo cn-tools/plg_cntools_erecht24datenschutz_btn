@@ -1,4 +1,13 @@
-# plg_cntools_erecht24datenschutz_btn
+ACHTUNG ACHTUNG ACHTUNG ACHTUNG
+===============================
+Der Datenbereitsteller hat die Ermittlung der Daten massiv geändert und daher ist es leider nicht mehr möglich, dass dieses Plug-In eine entsprechende Datenschutzerklärung on-the-fly für Ihre Homepage generiert!
+
+Daher wird dieses Repository archiviert!
+
+ENDE ENDE ENDE ENDE ENDE ENDE
+===============================
+
+### plg_cntools_erecht24datenschutz_btn
 
 <p>Dieses Joomla! Plug-In fügt beim Editor Ihrer Wahl einen Button hinzu, um auf einfachste Art &amp; Weise einen Haftungsausschluss und/oder eine Datenschutzerklärung in einem Artikel Ihrer Wahl einzufügen.</p>
 <p>Dieses Plug-In funktioniert nur in Kombination mit dem Plug-In <a href="https://github.com/cn-tools/plg_cntools_erecht24datenschutz" target="_blank">PLG_CNTOOLS_ERECHT24DATENSCHUTZ</a>! Sollten Sie dieses Plug-In noch nicht installiert haben, installieren und aktivieren Sie es bitte um dieses Plug-In ordnungsgemäs nutzen zu können.</p>
